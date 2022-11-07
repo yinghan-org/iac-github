@@ -9,5 +9,23 @@ module "public_repository" {
   gitignore_template = "Terraform"
   license_template = "mit"
   auto_init = true
+  branch_protections = [
+    {
+      branch = "master"
+      enforce_admins = false
+      required_status_checks = {
+        strict = true
+        contexts = ["ci/semaphoreci/push: IaC-GitHub CI Pipeline"]
+      }
+
+      required_pull_request_reviews = {
+        dismiss_stale_reviewes  = true
+        require_code_owner_reviews = true
+        required_approving_review_count = 1
+      }
+    }
+  ]
+
+
 
 }
