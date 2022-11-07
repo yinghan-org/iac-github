@@ -6,6 +6,7 @@
 # export AWS_SECRET_ACCESS_KEY=QL4rOU60aHATj6vLSyOABUEh7yGTQjgpV2JSMWuq
 # export GITHUB_OWNER=yinghan-org
 # export GITHUB_TOKEN=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
+# export GITHUB_TOKEN=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
 
 
 terraform {
