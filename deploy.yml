@@ -1,0 +1,24 @@
+version: v1.0
+name: "Deploy to GitHub"
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+
+global_job_config:
+  env_vars:
+    - name: BUILD_TOOLS_VERSION
+      varlue: v0.1.1
+    - name: TF_IN_AUTOMATION
+      value: "yes"
+    - name: TERRAFORM_PLANFILE
+      value: "out.tfplan"
+  secrets:
+    - name: github_access_token
+    - name: aws_access_credentials
+  prologue:
+    commands:
+      - checkout --use-cache
+
+blocks:
+  - name: "Deploy"
