@@ -3,7 +3,7 @@
 #######################################################################
 
 terraform {
-  required_version = "~> 0.12.23"
+  required_version = "~> 0.12.24"
   backend "s3" {
     bucket         = "github-terraform-example-terraform-state"
     key            = "organization/github-terraform-example/terraform.tfstate"
@@ -15,15 +15,6 @@ terraform {
     github = "~> 2.4"
   }
 }
-
-provider "github" {
-  organization = "yinghan-org"
-}
-
-provider "aws" {
-  region = "ap-southeast-1"
-}
-
 
 # terraform {
 #   required_version = "~> 0.12.9"
@@ -39,3 +30,14 @@ provider "aws" {
 #     aws    = "~> 3.37"
 #   }
 # }
+
+
+provider "github" {
+  organization = "yinghan-org"
+}
+
+provider "aws" {
+  region = "ap-southeast-1"
+}
+
+
