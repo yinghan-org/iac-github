@@ -3,8 +3,8 @@
 #######################################################################
 
 resource "aws_s3_bucket" "terraform_state" {
-  bucket  = "github-terraform-example-terraform-state"
-  acl = "private"
+  bucket = "github-terraform-example-terraform-state"
+  acl    = "private"
 
   server_side_encryption_configuration {
     rule {
@@ -20,9 +20,9 @@ resource "aws_s3_bucket" "terraform_state" {
 }
 
 resource "aws_dynamodb_table" "terraform_state_lock" {
-  name = "terraform-state-lock"
-  hash_key = "LockID"
-  read_capacity = 20
+  name           = "terraform-state-lock"
+  hash_key       = "LockID"
+  read_capacity  = 20
   write_capacity = 20
 
   attribute {
@@ -36,10 +36,10 @@ resource "aws_dynamodb_table" "terraform_state_lock" {
 #######################################################################
 
 resource "aws_iam_policy" "terraform_s3_list_read_write_policy" {
-  name = "S3TerraformStateListReadWriteAccess"
-  path = "/"
+  name        = "S3TerraformStateListReadWriteAccess"
+  path        = "/"
   description = "This policy grants read and write permissions to the Terraform DynamoDB state lock table"
-  policy = data.aws_iam_policy_document.terraform_s3_list_read_write_policy_document.json
+  policy      = data.aws_iam_policy_document.terraform_s3_list_read_write_policy_document.json
 }
 
 data "aws_iam_policy_document" "terraform_s3_list_read_write_policy_document" {
@@ -55,10 +55,10 @@ data "aws_iam_policy_document" "terraform_s3_list_read_write_policy_document" {
 }
 
 resource "aws_iam_policy" "terraform_dynamodb_read_write_policy" {
-  name = "DynamoDBTerraformStateLocksReadWriteAccess"
-  path = "/"
+  name        = "DynamoDBTerraformStateLocksReadWriteAccess"
+  path        = "/"
   description = "This policy grants read and write permissions to the Terraform DynamoDB state lock table."
-  policy = data.aws_iam_policy_document.terraform_dynamodb_read_write_policy_document.json
+  policy      = data.aws_iam_policy_document.terraform_dynamodb_read_write_policy_document.json
 }
 
 data "aws_iam_policy_document" "terraform_dynamodb_read_write_policy_document" {
@@ -71,10 +71,10 @@ data "aws_iam_policy_document" "terraform_dynamodb_read_write_policy_document" {
 }
 
 resource "aws_iam_policy" "iam_user_self_management_policy" {
-  name = "IAMUserSelfManagement"
-  path = "/"
+  name        = "IAMUserSelfManagement"
+  path        = "/"
   description = "This policy grants an fulls permissions to manage the terraform-ci IAM user and its related IAM policies."
-  policy = data.aws_iam_policy_document.iam_user_self_management_policy_document.json
+  policy      = data.aws_iam_policy_document.iam_user_self_management_policy_document.json
 }
 
 data "aws_caller_identity" "current" {}
@@ -103,18 +103,18 @@ resource "aws_iam_user" "user" {
 }
 
 resource "aws_iam_user_policy_attachment" "terraform_s3_list_read_write_policy" {
-  user = aws_iam_user.user.name
+  user       = aws_iam_user.user.name
   policy_arn = aws_iam_policy.terraform_s3_list_read_write_policy.arn
 }
 
 
 
 resource "aws_iam_user_policy_attachment" "terraform_dynamodb_read_write_policy" {
-  user = aws_iam_user.user.name
+  user       = aws_iam_user.user.name
   policy_arn = aws_iam_policy.terraform_dynamodb_read_write_policy.arn
 }
 
 resource "aws_iam_user_policy_attachment" "iam_user_self_management_policy" {
-  user = aws_iam_user.user.name
+  user       = aws_iam_user.user.name
   policy_arn = aws_iam_policy.iam_user_self_management_policy.arn
 }
