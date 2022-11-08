@@ -3,7 +3,7 @@
 #######################################################################
 
 terraform {
-  required_version = "~> 0.12.9"
+  required_version = "~> 0.12.24"
   backend "s3" {
     bucket         = "github-terraform-example-terraform-state"
     key            = "organization/github-terraform-example/terraform.tfstate"
@@ -12,8 +12,7 @@ terraform {
     dynamodb_table = "terraform-state-lock"
   }
   required_providers {
-    github = "~> 2.9.2"
-    aws    = "~> 3.37"
+    github = "~> 2.4"
   }
 }
 
