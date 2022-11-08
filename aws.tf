@@ -3,7 +3,7 @@
 #######################################################################
 
 resource "aws_s3_bucket" "terraform_state" {
-  bucket = "github-terraform-example-terraform-state-yinghan"
+  bucket = "github-terraform-example-terraform-state"
   acl    = "private"
 
   server_side_encryption_configuration {
